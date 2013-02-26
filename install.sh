@@ -8,7 +8,7 @@ echo "-------------------------------------------"
 echo " * Running git clone git://github.com/pingviini/mydotfiles $HOME/.mydotfiles"
 
 if [ ! -d $HOME/.mydotfiles ]; then
-    git clone git://github.com/pingviini/mydotfiles $HOME/.mydotfiles
+    git clone -q git://github.com/pingviini/mydotfiles $HOME/.mydotfiles
     echo " $(tput setaf 2)* repository cloned$(tput setaf 9)"
 else
     echo " $(tput setaf 1)* There is .mydotfiles folder already in $HOME."
