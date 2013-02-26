@@ -1,0 +1,20 @@
+[ui]
+username = Jukka Ojaniemi <jukka.ojaniemi@jyu.fi>
+verbose = True
+
+[extensions]
+convert =
+color =
+graphlog =
+hgk =
+mercurial_keyring =
+
+[auth]
+acme.prefix = jyuplone.cc.jyu.fi/code
+acme.username = pingviini
+acme.schemes = http
+
+[alias]
+slog = log --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.slog
+nlog = log --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.nlog
+sglog = glog --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.sglog
