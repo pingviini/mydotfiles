@@ -1,8 +1,9 @@
 execute pathogen#infect()
-HelpTags
+execute pathogen#helptags()
 syntax on
 filetype plugin indent on
 
+set term=xterm
 set ai
 set modeline
 set wildignore=*.swp,*.bak,*.pyc,*.class,eggs,develop-eggs,*.egg-info,*~,node_modules,*.mo
@@ -49,10 +50,10 @@ au BufNewFile,BufRead *.json setfiletype json
 au BufNewFile,BufRead *.ru setfiletype ruby
 au BufNewFile,BufRead *.conf setfiletype conf
 au BufNewFile,BufRead *.cfg setfiletype conf
-
-" TODO: why does modula2 overrides this?
-au BufNewFile,BufRead *.md setfiletype markdown
-au BufNewFile,BufRead *.markdown setfiletype markdown
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
 
 " My status lines
 " set statusline=%<%f%y\ \ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
