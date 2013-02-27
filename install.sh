@@ -57,9 +57,17 @@ fi
 echo "$(tput setaf 7)Phase 3 - Vim$(tput setaf 9)"
 echo "-------------"
 
+if [ ! -d $HOME/.vim ]; then
+    echo " * symlinking vim to $HOME/.vim"
+    ln -s $HOME/.mydotfiles/vim $HOME/.vim
+    echo " $(tput setaf 2)* symlink ready$(tput setaf 9)"
+else
+    echo " $(tput setaf 3)* found .vim from $HOME.$(tput setaf 9)"
+fi
+
 if [ ! -f $HOME/.vimrc ]; then
     echo " * symlinking vimrc to $HOME/.vimrc"
-    ln -s $HOME/.mydotfiles/vim/vimrc $HOME/.vimrc
+    ln -s $HOME/.vim/vimrc $HOME/.vimrc
     echo " $(tput setaf 2)* symlink ready$(tput setaf 9)"
 else
     echo " $(tput setaf 3)* found .vimrc from $HOME.$(tput setaf 9)"
@@ -67,7 +75,7 @@ fi
 
 if [ ! -f $HOME/.gvimrc ]; then
     echo " * symlinking gvimrc to $HOME/.gvimrc"
-    ln -s $HOME/.mydotfiles/vim/gvimrc $HOME/.gvimrc
+    ln -s $HOME/.vim/gvimrc $HOME/.gvimrc
     echo " $(tput setaf 2)* symlink ready.$(tput setaf 9)"
 else
     echo " $(tput setaf 3)* found .gvimrc from $HOME.$(tput setaf 9)"
@@ -75,6 +83,9 @@ fi
 
 echo " * Updating vim bundles..."
 cd $HOME/.mydotfiles
-git submodule foreach git submodule init
-git submodule foreach git submodule update
-echo " * Vim bundles updated."
+git submodule init
+git submodule update
+echo " $(tput setaf 2)* Vim bundles updated.$(tput setaf 9)"
+echo " * Creating backup, undos and swap directorys for vim."
+mkdir -p $HOME/.mydotfiles/vim/tmp/{backup,swap,undos}
+echo " $(tput setaf 2)* Folders created.$(tput setaf 9)"

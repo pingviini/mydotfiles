@@ -1,5 +1,5 @@
 execute pathogen#infect()
-execute pathogen#helptags()
+HelpTags
 syntax on
 filetype plugin indent on
 
@@ -9,11 +9,11 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,eggs,develop-eggs,*.egg-info,*~,node_mo
 
 set t_Co=256
 set background=dark
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-colorscheme solarized
+" let g:solarized_termtrans=1
+" let g:solarized_termcolors=256
+" let g:solarized_contrast="high"
+" let g:solarized_visibility="high"
+" colorscheme solarized
 
 " Use smart indenting
 set smarttab expandtab autoindent
@@ -435,7 +435,7 @@ map <leader>j ]%
 " UltiSnip
 """"""""""
 
-set runtimepath+=~/.mydotfiles/vim/bundle/UltiSnips
+set runtimepath+=~/.vim/bundle/UltiSnips
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
