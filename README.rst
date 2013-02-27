@@ -8,7 +8,8 @@ Install
 
 ::
 
-    $ sudo aptitude install git mercurial
+    $ sudo aptitude install python python-dev mercurial git subversion vim zsh
+    $ sudo pip install hghooks
     $ wget -q --no-check-certificate -O - https://github.com/pingviini/mydotfiles/raw/master/install.sh  | bash
 
 
