@@ -29,7 +29,7 @@ fi
 
 if [ ! -f $HOME/.hgignore ]; then
     echo " * symlinking hgignore to $HOME/.hgignore"
-    ln -s $HOME/.mydotfiles/mercurial/hgrc $HOME/.hgignore
+    ln -s $HOME/.mydotfiles/mercurial/hgignore $HOME/.hgignore
     echo " $(tput setaf 2)* symlink ready.$(tput setaf 9)\n"
 else
     echo " $(tput setaf 3)* found .hgignore from $HOME.$(tput setaf 9)"
