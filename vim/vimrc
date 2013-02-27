@@ -11,10 +11,10 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,eggs,develop-eggs,*.egg-info,*~,node_mo
 set t_Co=256
 set background=dark
 " let g:solarized_termtrans=1
-" let g:solarized_termcolors=256
-" let g:solarized_contrast="high"
-" let g:solarized_visibility="high"
-" colorscheme solarized
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+"let g:solarized_visibility="high"
+colorscheme jellybeans
 
 " Use smart indenting
 set smarttab expandtab autoindent
@@ -275,13 +275,13 @@ nnoremap <Leader>r :redraw!<CR>
 
 
 " Open file tree
-" nnoremap <Leader>n :LustyFilesystemExplorer<CR>
+nnoremap <Leader>n :LustyFilesystemExplorer<CR>
 " Open bufexplorer
-" nnoremap <Leader>m :LustyBufferExplorer <CR>
+nnoremap <Leader>m :LustyBufferExplorer <CR>
 " Opens filesystem explorer at the directory of the current file
-" nnoremap <Leader>f :LustyFilesystemExplorerFromHere <CR>
+nnoremap <Leader>f :LustyFilesystemExplorerFromHere <CR>
 " Opens buffer grep
-" nnoremap <Leader>g :LustyBufferGrep <CR>
+nnoremap <Leader>g :LustyBufferGrep <CR>
 
 " map <Leader>p :echo expand('%:p') <CR>
 
@@ -334,11 +334,11 @@ map <Leader>l $
 
 
 " LustyExplorer
-" au VimEnter * unmap <Leader>lf
-" au VimEnter * unmap <Leader>lb
-" au VimEnter * unmap <Leader>lj
-" au VimEnter * unmap <Leader>lg
-" au VimEnter * unmap <Leader>lr
+au VimEnter * unmap <Leader>lf
+au VimEnter * unmap <Leader>lb
+au VimEnter * unmap <Leader>lj
+au VimEnter * unmap <Leader>lg
+au VimEnter * unmap <Leader>lr
 
 
 " EasyGrep
@@ -389,8 +389,8 @@ EOF
 
 " Ack 
 " http://betterthangrep.com/
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-nnoremap <leader>a :Ack
+" let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+" nnoremap <leader>a :Ack
 
 " Learn mode!
 " Disables arrow keys even in insert mode!
