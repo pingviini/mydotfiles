@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Installing dotfiles"
-echo "===================\n"
+echo "==================="
 
 echo "$(tput setaf 7)Phase 0 - Clone pingviini's mydotfiles repo$(tput setaf 9)"
 echo "-------------------------------------------"
@@ -32,7 +32,7 @@ if [ ! -f $HOME/.hgignore ]; then
     ln -s $HOME/.mydotfiles/mercurial/hgrc $HOME/.hgignore
     echo " $(tput setaf 2)* symlink ready.$(tput setaf 9)\n"
 else
-    echo " $(tput setaf 3)* found .hgignore from $HOME.$(tput setaf 9)\n"
+    echo " $(tput setaf 3)* found .hgignore from $HOME.$(tput setaf 9)"
 fi
 
 echo "$(tput setaf 7)Phase 2 - Git$(tput setaf 9)"
