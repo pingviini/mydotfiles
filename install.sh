@@ -53,3 +53,28 @@ if [ ! -f $HOME/.gitignore ]; then
 else
     echo " $(tput setaf 3)* found .gitignore from $HOME.$(tput setaf 9)"
 fi
+
+echo "$(tput setaf 7)Phase 3 - Vim$(tput setaf 9)"
+echo "-------------"
+
+if [ ! -f $HOME/.vimrc ]; then
+    echo " * symlinking vimrc to $HOME/.vimrc"
+    ln -s $HOME/.mydotfiles/vim/vimrc $HOME/.vimrc
+    echo " $(tput setaf 2)* symlink ready$(tput setaf 9)"
+else
+    echo " $(tput setaf 3)* found .vimrc from $HOME.$(tput setaf 9)"
+fi
+
+if [ ! -f $HOME/.gvimrc ]; then
+    echo " * symlinking gvimrc to $HOME/.gvimrc"
+    ln -s $HOME/.mydotfiles/vim/gvimrc $HOME/.gvimrc
+    echo " $(tput setaf 2)* symlink ready.$(tput setaf 9)"
+else
+    echo " $(tput setaf 3)* found .gvimrc from $HOME.$(tput setaf 9)"
+fi
+
+echo " * Updating vim bundles..."
+cd $HOME/.mydotfiles
+git submodule foreach git submodule init
+git submodule foreach git submodule update
+echo " * Vim bundles updated."
