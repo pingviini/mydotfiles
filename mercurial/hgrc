@@ -12,8 +12,8 @@ mercurial_keyring =
 
 [auth]
 acme.prefix = jyuplone.cc.jyu.fi/code
-acme.username = pingviini
-acme.schemes = http
+acme.username = jutaojan
+acme.schemes = https
 
 [alias]
 slog = log --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.slog
@@ -21,7 +21,7 @@ nlog = log --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.nlog
 sglog = glog --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.sglog
 
 [hooks]
-pretxncommit.pep8 = python:hghooks.code.pep8hook
-pretxncommit.pyflakes = python:hghooks.code.pyflakeshook
+#pretxncommit.pep8 = python:hghooks.code.pep8hook
+#pretxncommit.pyflakes = python:hghooks.code.pyflakeshook
 pretxncommit.pdb = python:hghooks.code.pdbhook
-pretxncommit.jslint = python:hghooks.code.jslinthook
+# pretxncommit.jslint = python:hghooks.code.jslinthook

@@ -81,11 +81,24 @@ else
     echo " $(tput setaf 3)* found .gvimrc from $HOME.$(tput setaf 9)"
 fi
 
-echo " * Updating vim bundles..."
+if [ ! -f $HOME/.pdbrc ]; then
+    echo " * symlinking pdbrc to $HOME/.pdbrc"
+    ln -s $HOME/.python/pdbrc $HOME/.pdbrc
+    echo " $(tput setaf 2)* symlink ready.$(tput setaf 9)"
+else
+    echo " $(tput setaf 3)* found .pdbrc from $HOME.$(tput setaf 9)"
+fi
+
+echo "$(tput setaf 7)Phase 4 - Zsh & oh-my-zsh.$(tput setaf 9)"
+echo "-------------"
+echo " * Updating oh-my-zsh..."
 cd $HOME/.mydotfiles
-git submodule init
-git submodule update
-echo " $(tput setaf 2)* Vim bundles updated.$(tput setaf 9)"
-echo " * Creating backup, undos and swap directorys for vim."
-mkdir -p $HOME/.mydotfiles/vim/tmp/{backup,swap,undos}
-echo " $(tput setaf 2)* Folders created.$(tput setaf 9)"
+git submodule update ./zsh/oh-my-zsh
+echo " $(tput setaf 2)* Oh-my-zsh updated.$(tput setaf 9)"
+if [ ! -f $HOME/.zshrc ]; then
+    echo " * symlinking zshrc.zsh-template to $HOME/.zshrc"
+    ln -s $HOME/.mydotfiles/zsh/oh-my-zsh/zshrc.zsh-template $HOME/.zshrc
+    echo " $(tput setaf 2)* symlink ready$(tput setaf 9)"
+else
+    echo " $(tput setaf 3)* found .zshrc from $HOME.$(tput setaf 9)"
+fi

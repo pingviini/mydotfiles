@@ -3,3 +3,45 @@
 	email = jukka.ojaniemi@gmail.com
 [core]
 	excludesfile = $HOME/.gitignore
+	editor = vim
+
+	# OS X users only!
+	# askpass = /PATH/TO/YOUR/HOME/FOLDER/git-password
+
+	# Highlight whitespace errors in git diff:
+	whitespace = tabwidth=4,tab-in-indent,cr-at-eol,trailing-space
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[alias]
+    ap = add -p
+    dc = diff --cached
+    st = status
+    ci = commit
+    cia = commit -v -a
+    cp = cherry-pick
+    br = branch
+    co = checkout
+    df = diff
+    dfs = diff --staged
+    l = log
+    ll = log -p
+    reha = reset --hard
+
+    # A log of commits indicating where various branches are currently pointing.
+    lga = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --branches --remotes
+
+    # "git weburl" prints the URL of the github project page for repositories hosted on github.
+    weburl = !git config --get remote.origin.url | sed -e 's/git:\\/\\/github.com/https:\\/\\/github.com/' -e 's/git@github.com:/https:\\/\\/github.com\\//' -e 's/\\.git$//'
+    # "git browse" opens the github project page of this repository in the browser.
+    browse = !open `git weburl`
+
+# configure git to always add '--rebase' to git pull, to maintain nicer history
+# read more about it at http://gitready.com/advanced/2009/02/11/pull-with-rebase.html
+# you can override this with the '--no-rebase' switch
+[branch]
+    autosetuprebase = always
+

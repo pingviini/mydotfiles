@@ -22,6 +22,8 @@ set smarttab expandtab autoindent
 " By default use four spaces as indentation
 set tabstop=4 shiftwidth=4 softtabstop=4
 
+" Hide pyc and mo files in nerdtree
+let NERDTreeIgnore = ['\.pyc$', '\.mo$']
 
 " Ruby uses 2 spaces as indentation
 au FileType ruby,haml,eruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
