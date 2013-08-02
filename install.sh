@@ -8,7 +8,7 @@ echo "-------------------------------------------"
 echo " * Running git clone git://github.com/pingviini/mydotfiles $HOME/.mydotfiles"
 
 if [ ! -d $HOME/.mydotfiles ]; then
-    git clone -q git://github.com/pingviini/mydotfiles $HOME/.mydotfiles
+    git clone -q git@github.com:pingviini/mydotfiles.git $HOME/.mydotfiles
     echo " $(tput setaf 2)* repository cloned$(tput setaf 9)"
 else
     echo " $(tput setaf 1)* There is .mydotfiles folder already in $HOME."
@@ -93,7 +93,7 @@ echo "$(tput setaf 7)Phase 4 - Zsh & oh-my-zsh.$(tput setaf 9)"
 echo "-------------"
 echo " * Updating oh-my-zsh..."
 cd $HOME/.mydotfiles
-git submodule update ./zsh/oh-my-zsh
+git submodule update --init ./zsh/oh-my-zsh
 echo " $(tput setaf 2)* Oh-my-zsh updated.$(tput setaf 9)"
 if [ ! -f $HOME/.zshrc ]; then
     echo " * symlinking zshrc.zsh-template to $HOME/.zshrc"
