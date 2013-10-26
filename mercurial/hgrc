@@ -25,3 +25,6 @@ sglog = glog --style=$HOME/.mydotfiles/mercurial/templates/map-cmdline.sglog
 #pretxncommit.pyflakes = python:hghooks.code.pyflakeshook
 pretxncommit.pdb = python:hghooks.code.pdbhook
 # pretxncommit.jslint = python:hghooks.code.jslinthook
+
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
