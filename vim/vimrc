@@ -1,9 +1,59 @@
-execute pathogen#infect()
-execute pathogen#helptags()
-syntax on
-filetype plugin indent on
+set nocompatible
+filetype off        " required
 
-set term=xterm
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+" Add or remove your plugins here:
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'FooSoft/vim-argwrap'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'powerline/powerline'
+Plugin 'fatih/vim-go'
+Plugin 'mfukar/robotframework-vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'ElmCast/elm-vim'
+Plugin 'vim-scripts/groovy.vim'
+Plugin 'elubow/cql-vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'sjl/gundo.vim'
+Plugin 'sjl/badwolf'
+Plugin 'mileszs/ack.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'posva/vim-vue'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+filetype plugin indent on    " required
+" " To ignore plugin indent changes, instead use:
+" "filetype plugin on
+" "
+" " Brief help
+" " :PluginList       - lists configured plugins
+" " :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" " :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+" "
+" " see :h vundle for more details or wiki for FAQ
+" " Put your non-Plugin stuff after this line
+
+syntax on
+
 set ai
 set modeline
 set wildignore=*.swp,*.bak,*.pyc,*.class,eggs,develop-eggs,*.egg-info,*~,node_modules,*.mo
@@ -14,30 +64,81 @@ set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_contrast="high"
 "let g:solarized_visibility="high"
-colorscheme jellybeans
+" colorscheme jellybeans
+colorscheme badwolf         " awesome colorscheme
 
 " Use smart indenting
 set smarttab expandtab autoindent
 
 " By default use four spaces as indentation
 set tabstop=4 shiftwidth=4 softtabstop=4
+set number      " Linenumbers
+set cursorline  " highlight current line
+set wildmenu    " visual autocomplete for command menu
+set lazyredraw  " redraw only when we need to.
+set showmatch   " highlight matching [{()}]
 
 " Hide pyc and mo files in nerdtree
 let NERDTreeIgnore = ['\.pyc$', '\.mo$']
 
-" Ruby uses 2 spaces as indentation
-au FileType ruby,haml,eruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-" Also for xmly stuff
-au FileType html,xml,xhtml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-" css, javascript
-au FileType css,js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" Go
+au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
+au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+au Filetype go nnoremap <leader>r :GoRun %<CR>
 
-" CSS properties and classes often use dash in their names. Add it to word
-" match then.
-au FileType css,jade,stylus,less,scss,handlebars,html,coffee,eruby,javascript setlocal iskeyword+=-
-
-" Makefiles and gitconfig require tab
-au FileType make,gitconfig setlocal noexpandtab
+augroup configgroup
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    " autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+    "             \:call <SID>StripTrailingWhitespaces()
+    autocmd FileType c,cpp,java,php,python autocmd BufWritePre <buffer> %s/\s\+$//e
+    autocmd FileType html,xml,xhtml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType css,js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType yml,yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType css,jade,stylus,less,scss,handlebars,html,coffee,eruby,javascript setlocal iskeyword+=-
+    " Makefiles and gitconfig require tab
+    autocmd FileType make,gitconfig setlocal noexpandtab
+    autocmd FileType java setlocal noexpandtab
+    autocmd FileType java setlocal list
+    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType php setlocal expandtab
+    autocmd FileType php setlocal list
+    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+    " Ruby uses 2 spaces as indentation
+    autocmd FileType ruby setlocal tabstop=2
+    autocmd FileType ruby setlocal shiftwidth=2
+    autocmd FileType ruby setlocal softtabstop=2
+    autocmd FileType ruby setlocal commentstring=#\ %s
+    autocmd FileType python setlocal commentstring=#\ %s
+    autocmd BufEnter *.cls setlocal filetype=java
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.sh setlocal tabstop=2
+    autocmd BufEnter *.sh setlocal shiftwidth=2
+    autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd BufEnter *.json setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd FileType python setlocal omnifunc=jedi#completions
+        let g:jedi#completions_enabled = 0
+        let g:jedi#auto_vim_configuration = 0
+        let g:neocomplete#force_omni_input_patterns.python =
+        \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
+    autocmd BufNewFile, BufRead *.py
+                \ setlocal tabstop=4
+                \ setlocal softtabstop=4
+                \ setlocal shiftwidth=4
+                \ setlocal textwidth=79
+                \ setlocal expandtab
+                \ setlocal autoindent
+                \ setlocal fileformat=unix
+    autocmd BufNewFile,BufRead *.js, *.html, *.css
+                \ set tabstop=2
+                \ set softtabstop=2
+                \ set shiftwidth=2
+augroup END
 
 "" Leader mappings
 let mapleader = ","
@@ -52,20 +153,41 @@ au BufNewFile,BufRead *.json setfiletype json
 au BufNewFile,BufRead *.ru setfiletype ruby
 au BufNewFile,BufRead *.conf setfiletype conf
 au BufNewFile,BufRead *.cfg setfiletype conf
+au BufNewFile,BufRead *.go setfiletype go
+au BufNewFile,BufRead *.robot setfiletype robot
+au BufNewFile,BufRead *.yml setfiletype yaml
+au BufNewFile,BufRead *.cql setfiletype cql
+au BufNewFile,BufRead Jenkinsfile setfiletype groovy
+
 augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 
+" edit vimrc/zshrc and load vimrc bindings
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
 " My status lines
 " set statusline=%<%f%y\ \ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
 " With Syntastic
-set statusline=%<%f%y\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
+" set statusline=%<%f%y\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
 
-let g:syntastic_enable_signs=1
+" let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': ['ruby', 'python', 'javascript', 'coffee', 'sass', 'css'],
-                           \ 'passive_filetypes': ['puppet'] }
+                          \ 'active_filetypes': ['ruby', 'python', 'javascript', 'coffee', 'sass', 'css', 'go', 'elm'],
+                          \ 'passive_filetypes': ['puppet'] }
+let g:syntastic_python_checkers = ['flake8']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:elm_syntastic_show_warnings = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
 nnoremap <leader>e :Errors<CR>
 
@@ -148,7 +270,7 @@ au BufWinEnter * silent loadview
 " TODO: Bug when opening without file
 
 
-" use :w!! to write to a file using sudo if you forgot to "sudo vim file" 
+" use :w!! to write to a file using sudo if you forgot to "sudo vim file"
 cmap w!! %!sudo tee > /dev/null %
 
 " This turns off Vim’s crazy default regex characters and makes searches use
@@ -218,8 +340,12 @@ command SessionLoad source .session.vim
 
 
 " Folding
-"set foldmethod=indent
-set foldlevel=9999 " initially open all folds
+set foldenable
+set foldmethod=indent
+set foldlevelstart=10  " Open most folds
+set foldnestmax=10
+" space open/closes folds
+nnoremap <space> za
 command FoldAll set foldlevel=0
 command FoldOne set foldlevel=1
 
@@ -232,7 +358,8 @@ command FoldOne set foldlevel=1
 " Hilight long lines
 command LongLinesShow let w:m1=matchadd('Search', '\%<81v.\%>78v', -1) | let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 command LongLinesHide call matchdelete(w:m1) | call matchdelete(w:m2)
-autocmd BufRead,BufNewFile *.md,*.txt,*.py,*.cgi :LongLinesShow
+autocmd BufRead,BufNewFile *.md,*.rst,*.py :LongLinesShow
+
 
 
 " Makes Caps Lock work as Esc
@@ -259,7 +386,6 @@ command Vertical vertical sp
 " new horizontal split
 command Horizontal sp
 
-
 " Easily move between split windows using <leader>hjkl
 nnoremap <leader>h <C-w>h
 nnoremap <leader>j <C-w>j
@@ -275,6 +401,7 @@ nnoremap <C-l> <C-w>>
 " Force redraw to C-l
 nnoremap <Leader>r :redraw!<CR>
 
+nnoremap <space> za
 
 " Open file tree
 nnoremap <Leader>n :LustyFilesystemExplorer<CR>
@@ -336,11 +463,11 @@ map <Leader>l $
 
 
 " LustyExplorer
-au VimEnter * unmap <Leader>lf
-au VimEnter * unmap <Leader>lb
-au VimEnter * unmap <Leader>lj
-au VimEnter * unmap <Leader>lg
-au VimEnter * unmap <Leader>lr
+" au VimEnter * unmap <Leader>lf
+" au VimEnter * unmap <Leader>lb
+" au VimEnter * unmap <Leader>lj
+" au VimEnter * unmap <Leader>lg
+" au VimEnter * unmap <Leader>lr
 
 
 " EasyGrep
@@ -357,39 +484,25 @@ if exists('+colorcolumn')
 endif
 
 """
-" Exuberant Ctags and Omelette
+" CtrlP settings
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+"
 map <Leader>t :CtrlP<CR>
 map <Leader>T :CtrlPClearAllCaches<CR>
-map <S-F10> :!ctags -R -f ./tags `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`<CR>
+"
+" Exuberant Ctags and Omelette
+map <Leader>c :!ctags -R -f ./tags `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`<CR>
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.egg-info     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|node_modules)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
-" Find tags|omelette directory by going up from cwd
-py << EOF
-import os
-import sys
-import vim
-parts = os.getcwd().split("/")
-max = len(parts)
-for i in range(max):
-    i += 1
-    tags = "%s/tags" % "/".join(parts[:-i])
-    if os.path.isfile(tags):
-        vim.command(r"set tags=%s" % tags)
-        break
-for i in range(max):
-    i += 1
-    omelette = "%s/parts/omelette" % "/".join(parts[:-i])
-    if os.path.isdir(omelette):
-        if os.environ.get("PYTHONPATH"):
-            os.environ["PYTHONPATH"] += ":" + omelette
-        else:
-            os.environ["PYTHONPATH"] = omelette
-        sys.path.append(omelette)
-        vim.command(r"set path+=%s" % omelette)
-        break
-EOF
-
-
-" Ack 
+" Ack
 " http://betterthangrep.com/
 " let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 " nnoremap <leader>a :Ack
@@ -403,14 +516,14 @@ EOF
 "        inoremap <up> <nop>
 
 " Mr.Igor
-nmap <D-i> :!igor %<CR> <bar> :e!<CR>
+" nmap <D-i> :!igor %<CR> <bar> :e!<CR>
 
 " TagBar configuration
-" let g:tagbar_usearrows = 1
-" nnoremap <leader>ll :TagbarToggle<CR>
+let g:tagbar_usearrows = 1
+nnoremap <leader>ll :TagbarToggle<CR>
 
 " Gundo
-" map <leader>G :GundoToggle<CR>
+map <leader>u :GundoToggle<CR>
 
 " Tasklist
 " map <leader>td <Plug>TaskList
@@ -440,10 +553,10 @@ map <leader>j ]%
 
 set runtimepath+=~/.vim/bundle/UltiSnips
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 
 " NERDTree
 """"""""""
@@ -451,3 +564,61 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 silent! nmap <F2> :NERDTreeToggle<CR>
 silent! map <F3> :NERDTreeFind<CR>
 
+" Jedi
+" let g:jedi#use_tabs_not_buffers = 0
+
+" Powerline
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
+
+" neocomplete like
+" set completeopt+=noinsert
+" set completeopt+=noselect
+
+" Set before than deoplete
+" deoplete#mappings#_set_completeopt() in
+" https://github.com/Shougo/deoplete.nvim/blob/master/autoload/deoplete/mappings.vim
+" https://github.com/Shougo/deoplete.nvim/blob/master/rplugin/python3/deoplete/deoplete.py
+
+" Path to python interpreter for neovim
+let g:python3_host_prog  = '/usr/local/bin/python3'
+" Skip the check of neovim module
+let g:python3_host_skip_check = 1
+
+let g:deoplete#enable_at_startup = 1
+
+let g:ackprg = 'ag --vimgrep --smart-case'
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
+" open ag.vim
+nnoremap <leader>a :Ag
+
+
+" Elm
+nnoremap <leader>el :ElmEvalLine<CR>
+vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
+nnoremap <leader>em :ElmMakeCurrentFile<CR><Paste>
+
+
+autocmd BufWritePost *.elm ElmMakeCurrentFile
+autocmd BufWritePost *.elm ElmMakeFile("Main.elm")
+
+let g:SimpylFold_docstring_preview=1
+
+set rtp+=~/.fzf
+
+" Neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+nnoremap <silent> <leader>a :ArgWrap<CR>
